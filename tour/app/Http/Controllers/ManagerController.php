@@ -22,7 +22,7 @@ class ManagerController extends Controller
     {
         $clients = Client::all();
         $managers = Manager::all();
-        return view('manager.index', ['managers' => $managers]);
+        return view('manager.index', ['managers' => $managers, 'clients' => $clients]);
     }
 
     /**
@@ -72,7 +72,8 @@ class ManagerController extends Controller
      */
     public function edit(Manager $manager)
     {
-        return view('manager.edit', ['manager' => $manager]);
+        $clients = Client::all();
+        return view('manager.edit', ['manager' => $manager, 'clients' => $clients]);
     }
 
     /**

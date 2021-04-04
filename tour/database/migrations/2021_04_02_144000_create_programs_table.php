@@ -18,12 +18,11 @@ class CreateProgramsTable extends Migration
             $table->string('title');
             $table->string('day1');
             $table->string('day2');
-            $table->string('day3');
-            $table->string('day4');
-            $table->string('day5');
-            $table->string('day6');
-            $table->string('day7');
-            $table->string('day8');
+
+            $table->unsignedBigInteger('manager_id');
+            $table->foreign('manager_id')->references('id')->on('managers');
+            $table->unsignedBigInteger('client_id');
+            $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();
         });
     }

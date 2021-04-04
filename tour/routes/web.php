@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ManagerController;
+use App\Http\Controllers\ProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,13 @@ Route::group(['prefix' => 'managers'], function () {
     Route::post('update/{manager}', [ManagerController::class, 'update'])->name('manager.update');
     Route::post('delete/{manager}', [ManagerController::class, 'destroy'])->name('manager.destroy');
     Route::get('show/{manager}', [ManagerController::class, 'show'])->name('manager.show');
+});
+Route::group(['prefix' => 'programs'], function () {
+    Route::get('', [ProgramController::class, 'index'])->name('program.index');
+    Route::get('create', [ProgramController::class, 'create'])->name('program.create');
+    Route::post('store', [ProgramController::class, 'store'])->name('program.store');
+    Route::get('edit/{program}', [ProgramController::class, 'edit'])->name('program.edit');
+    Route::post('update/{program}', [ProgramController::class, 'update'])->name('program.update');
+    Route::post('delete/{program}', [ProgramController::class, 'destroy'])->name('program.destroy');
+    Route::get('show/{program}', [ProgramController::class, 'show'])->name('program.show');
 });

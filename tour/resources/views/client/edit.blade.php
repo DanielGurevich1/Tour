@@ -1,12 +1,13 @@
-<form method="POST" action="{{route('manager.update', [$manager->id])}}">
-    Name: <input type="text" name="manager_name" value="{{$manager->name}}">
-    Surname: <input type="text" name="manager_surname" value="{{$manager->surname}}">
+<form method="POST" action="{{route('client.update', [$client->id])}}">
+    Name: <input type="text" name="client_name" value="{{$client->name}}">
+    Surname: <input type="text" name="client_surname" value="{{$client->surname}}">
 
-    <select name="client_id">
-        @foreach ($client as $client)
-        <option value="{{$client->id}}">{{$client->name}} {{$client->surname}}</option>
-        @endforeach
-    </select>
+    <label for="client_phone">Enter your phone number:</label>
+    <input type="text" name="client_phone" value="{{$client->phone}}">
+
+    Email: <input type="email" name="client_email" value="{{$client->email}}">
+    @csrf
+    Country: <input type="text" name="client_country" value="{{$client->country}}">
     @csrf
 
     <button type="submit">Edit</button>
