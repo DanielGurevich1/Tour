@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class HotelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-        return view('category.index', ['categories' => $categories]);
+        $hotels = Hotel::all();
+        return view('hotel.index', ['hotels' => $hotels]);
     }
 
     /**
@@ -25,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('category.create');
+        return view('hotel.create');
     }
 
     /**
@@ -36,21 +36,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category;
-        $category->category = $request->category_name;
+        $hotel = new Hotel;
+        $hotel->name = $request->hotel_name;
+        $hotel->price = $request->hotel_price;
 
-
-        $category->save();
-        return redirect()->route('category.index');
+        $hotel->save();
+        return redirect()->route('hotel.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Hotel $hotel)
     {
         //
     }
@@ -58,39 +58,39 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Hotel $hotel)
     {
-        return view('category.edit', ['category.edit', 'category' => $category]);
+        return view('hotel.edit', ['hotel.edit', 'hotel' => $hotel]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Hotel $hotel)
     {
-        $category->category = $request->category_name;
+        $hotel->name = $request->hotel_name;
+        $hotel->price = $request->hotel_price;
 
-
-        $category->save();
-        return redirect()->route('category.index');
+        $hotel->save();
+        return redirect()->route('hotel.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Hotel  $hotel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Hotel $hotel)
     {
-        $category->delete();
-        return redirect()->route('category.index')->with('info_message', 'category was deleted.');
+        $hotel->delete();
+        return redirect()->route('hotel.index')->with('info_message', 'Hotel was deleted.');
     }
 }

@@ -16,15 +16,21 @@ class CreateToursTable extends Migration
         Schema::create('tours', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+
             $table->unsignedBigInteger('client_name_id');
             $table->foreign('client_name_id')->references('id')->on('clients');
+
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('types');
+
             $table->integer('length');
+
             $table->unsignedBigInteger('price_id');
             $table->foreign('price_id')->references('id')->on('prices');
+
             $table->unsignedBigInteger('guide_id');
             $table->foreign('guide_id')->references('id')->on('guides');
+
             $table->timestamps();
         });
     }
