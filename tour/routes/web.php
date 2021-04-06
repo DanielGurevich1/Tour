@@ -57,6 +57,7 @@ Route::group(['prefix' => 'programs'], function () {
     Route::post('update/{program}', [ProgramController::class, 'update'])->name('program.update');
     Route::post('delete/{program}', [ProgramController::class, 'destroy'])->name('program.destroy');
     Route::get('show/{program}', [ProgramController::class, 'show'])->name('program.show');
+    Route::get('pdf/{program}', [ProgramController::class, 'pdf'])->name('program.pdf');
 });
 Route::group(['prefix' => 'cars'], function () {
     Route::get('', [CarController::class, 'index'])->name('car.index');

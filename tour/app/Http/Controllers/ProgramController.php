@@ -6,6 +6,7 @@ use App\Models\Program;
 use App\Models\Manager;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use PDF;
 
 class ProgramController extends Controller
 {
@@ -107,5 +108,10 @@ class ProgramController extends Controller
     {
         $program->delete();
         return redirect()->route('program.index')->with('info_message', 'Program was deleted');
+    }
+    public function pdf(Program $program)
+    {
+        $pdf = PDF::loadView('program.pdf', ['program' => $program]);
+        return $pdf->download('program_id' . $program->id . '.pdf');
     }
 }
