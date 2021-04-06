@@ -1,5 +1,12 @@
 @foreach($programs as $program)
-{{$program->title}} > {{$program->day1}} + {{$program->day2}}<br>
+Tour program: {{$program->title}} > {{$program->day1}}
+About: <textarea name="about_d1">{{$program->about_d1}}"</textarea>
+{{$program->day2}}<br>About: <textarea name="about_d2">{{$program->about_d2}}"</textarea>
+Manager: {{$program->programManager->name}}
+{{$program->programManager->surname}}<br>
+Client: {{$program->programClient->name}}
+{{$program->programClient->surname}}
+
 
 <a href="{{route('program.edit', [$program])}}">[edit]</a><br>
 <a href="{{route('program.pdf', [$program])}}">[pdf]</a><br>

@@ -54,7 +54,9 @@ class DatabaseSeeder extends Seeder
             DB::table('programs')->insert([
                 'title' => $faker->country,
                 'day1' => $faker->city,
+                'about_d1' => $faker->text(rand(20, 50)),
                 'day2' => $faker->city,
+                'about_d2' => $faker->text(rand(20, 50)),
                 'manager_id' => rand(1, 10),
                 'client_id' => rand(1, 10),
 

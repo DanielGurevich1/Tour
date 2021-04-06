@@ -46,7 +46,10 @@ class ProgramController extends Controller
         $program = new Program;
         $program->title = $request->tour_title;
         $program->day1 = $request->day_1;
+        $program->about_d1 = $request->about_d1;
+
         $program->day2 = $request->day_2;
+        $program->about_d2 = $request->about_d2;
         $program->manager_id = $request->manager_id;
         $program->client_id = $request->client_id;
 
@@ -90,7 +93,10 @@ class ProgramController extends Controller
     {
         $program->title = $request->tour_title;
         $program->day1 = $request->day_1;
+        $program->about_d1 = $request->about_d1;
+
         $program->day2 = $request->day_2;
+        $program->about_d2 = $request->about_d2;
         $program->manager_id = $request->manager_id;
         $program->client_id = $request->client_id;
 

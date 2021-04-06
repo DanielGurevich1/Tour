@@ -17,7 +17,9 @@ class CreateProgramsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('day1');
+            $table->string('about_d1');
             $table->string('day2');
+            $table->string('about_d2');
 
             $table->unsignedBigInteger('manager_id');
             $table->foreign('manager_id')->references('id')->on('managers');
