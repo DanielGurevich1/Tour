@@ -17,6 +17,7 @@ class CreateManagersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('surname');
+            $table->string('portret', 100)->nullable();
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients');
             $table->timestamps();

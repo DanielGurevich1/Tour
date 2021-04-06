@@ -17,28 +17,47 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
-        DB::table('users')->insert([
-            'name' => $faker->name,
-            'surname' => $faker->surname,
-            'email' => Str::random(10) . '@gmail.com',
-
-            'password' => Hash::make('123'),
-
-            // $table->string('name');
-            // $table->string('surname');
-            // $table->string('phone');
-            // $table->string('email');
-            // $table->string('country');
-        ]);
-
-
+        //client
+        foreach (range(1, 10) as $_) {
+            $faker = Factory::create();
+            DB::table('clients')->insert([
+                'name' => $faker->firstName(),
+                'surname' => $faker->lastName(),
+                'phone' => $faker->phoneNumber,
+                'email' => Str::random(7) . '@gmail.com',
+                'country' => $faker->country(),
+            ]);
+        }
+        // user
         foreach (range(1, 10) as $_) {
 
-            DB::table('clients')->insert([
+            DB::table('users')->insert([
                 'name' => $faker->name,
-                'email' => 'briedis@gmail.com',
+                'email' => Str::random(7) . '@gmail.com',
                 'password' => Hash::make('123'),
+            ]);
+        }
+        //managers
+        foreach (range(1, 10) as $_) {
+
+            DB::table('managers')->insert([
+                'name' => $faker->firstName,
+                'surname' => $faker->lastName(),
+                'client_id' => rand(1, 10),
+
+
+            ]);
+        }
+        // programs
+        foreach (range(1, 10) as $_) {
+
+            DB::table('programs')->insert([
+                'title' => $faker->country,
+                'day1' => $faker->city,
+                'day2' => $faker->city,
+                'manager_id' => rand(1, 10),
+                'client_id' => rand(1, 10),
+
             ]);
         }
     }
