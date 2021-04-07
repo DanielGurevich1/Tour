@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
                 'name' => $faker->firstName,
                 'surname' => $faker->lastName(),
                 'client_id' => rand(1, 10),
-                'portret' => $faker->imageUrl(100, 150),
+                'portret' => $faker->imageUrl(50, 100),
 
             ]);
         }

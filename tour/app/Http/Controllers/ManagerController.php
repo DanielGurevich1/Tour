@@ -89,12 +89,15 @@ class ManagerController extends Controller
         $manager->surname = $request->manager_surname;
         $file = $request->file('manager_portret');
 
-        $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+        // $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension(); original
+        $name = rand(1000, 9999) . '.' . $file->getClientOriginalExtension(); // random
 
         $file->move(public_path('img'), $name);
 
-        $this->portret = 'http://localhost/Tour/tour/managers/img/' . $name;
+        $manager->portret = 'http://localhost/Tour/tour/public/img/' . $name; // move to db with original name
         // dd($file);
+        // /Applications/XAMPP/xamppfiles/htdocs/Tour/tour/public/img
+
         $manager->save();
         return redirect()->route('manager.index');
     }
@@ -107,6 +110,15 @@ class ManagerController extends Controller
      */
     public function destroy(Manager $manager)
     {
+
+
+
+
+        $addedLink = 'http://localhost/Tour/tour/public/img/';
+        $imgName = str_replace($addedLink, '', $manager->portret);
+        if (file_exists(public_path('img') . '/' . $imgName)) {
+            unlink(public_path('img') . '/' . $imgName);
+        }
         $manager->delete();
         return redirect()->route('manager.index')->with('info_message', 'Manager was deleted!');
     }
