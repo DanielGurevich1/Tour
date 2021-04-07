@@ -1,38 +1,36 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="./resources/js/app.js"></script>
-    /Applications/XAMPP/xamppfiles/htdocs/Tour/tour/resources/js/app.js
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    @extends('resources.app.js') --}}
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Client List</div>
 
-@foreach($clients as $client)
-{{$client->name}} {{$client->surname}}<br>
-<a href="{{route('client.edit', [$client])}}">[edit]</a><br>
-<form method="post" action="{{route('client.destroy', [$client])}}">
-    @csrf
-    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-</form>
-{{-- <a href="{{route('client.destroy', [$client])}}">[delete]</a><br> --}}
-@endforeach
+                <div class="card-body">
+                    <ul class="list-group ">
+                        @foreach($clients as $client)
+                        <li class="list-group-item">
+                            <div>
+                                <h3>{{$client->name}} {{$client->surname}}</h3>
+                            </div>
+                            <div class="list-line">
 
-{{-- <form method="POST" action="{{route('client.store')}}">
-Name: <input type="text" name="client_name">
-Surname: <input type="text" name="client_surname">
+                                <a href="{{route('client.edit', [$client])}}" class="btn btn-info btn-sm">Edit</a>
 
-<label for="client_phone">Enter your phone number:</label>
-<input type="text" name="client_phone">
+                                <form method="post" action="{{route('client.destroy', [$client])}}">
+                                    @csrf
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
 
-Email: <input type="email" name="client_email">
-@csrf
-Country: <input type="text" name="client_country">
-<button type="button">ADD</button>
-{{-- </form> --}}
-</body>
-</html> --}}
+                            </div>
+
+                        </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

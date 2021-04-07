@@ -87,7 +87,14 @@ class ManagerController extends Controller
     {
         $manager->name = $request->manager_name;
         $manager->surname = $request->manager_surname;
+        $file = $request->file('manager_portret');
 
+        $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+
+        $file->move(public_path('img'), $name);
+
+        $this->portret = 'http://localhost/Tour/tour/managers/img/' . $name;
+        // dd($file);
         $manager->save();
         return redirect()->route('manager.index');
     }
