@@ -10,22 +10,24 @@
                 <div class="card-body">
                     <ul class="list-group ">
                         @foreach($clients as $client)
-                        <li class="list-group-item">
-                            <div>
-                                <h3>{{$client->name}} {{$client->surname}}</h3>
-                            </div>
-                            <div class="list-line">
 
+                        <li class="list-group-item list-line">
+                            <div>
+                                {{$client->name}} {{$client->surname}}
+                            </div>
+                            <div class="list-line__buttons">
                                 <a href="{{route('client.edit', [$client])}}" class="btn btn-info btn-sm">Edit</a>
 
                                 <form method="post" action="{{route('client.destroy', [$client])}}">
                                     @csrf
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                 </form>
-
                             </div>
-
                         </li>
+
+
+
+
                         @endforeach
                     </ul>
                 </div>

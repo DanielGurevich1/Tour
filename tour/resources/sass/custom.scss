@@ -4,8 +4,14 @@
     align-items: center;
     &__buttons{
         display: flex;
+        cursor: pointer;
         &>*{
-            margin:75px;
+            margin:10px 15px;
         }
     }
+}
+
+.paginator-container{
+    margin:12 px;
+    
 }

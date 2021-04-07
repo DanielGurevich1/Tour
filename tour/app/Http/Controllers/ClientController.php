@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Validator;
 
 class ClientController extends Controller
 {
@@ -40,6 +41,26 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'client_name' => ['required', 'min:2', 'max:64'],
+                'client_surname' => ['required', 'min:2', 'max:64'],
+            ],
+            [
+                'client_name.min' => 'Name is too short',
+                'client_surname.min' => 'Name is too short',
+                'client_name.max' => 'Name is too long',
+                'client_surname.max' => 'Name is too long',
+
+            ]
+        );
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
+
         $client = new Client;
         $client->name = $request->client_name;
         $client->surname = $request->client_surname;
@@ -47,7 +68,7 @@ class ClientController extends Controller
         $client->email = $request->client_email;
         $client->country = $request->client_country;
         $client->save();
-        return redirect()->route('client.index');
+        return redirect()->route('client.index')->with('success_message', 'Client was added.');;
     }
 
     /**
@@ -81,13 +102,31 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'client_name' => ['required', 'min:2', 'max:64'],
+                'client_surname' => ['required', 'min:2', 'max:64'],
+            ],
+            [
+                'client_name.min' => 'Name is too short',
+                'client_surname.min' => 'Name is too short',
+                'client_name.max' => 'Name is too long',
+                'client_surname.max' => 'Name is too long',
+
+            ]
+        );
+        if ($validator->fails()) {
+            $request->flash();
+            return redirect()->back()->withErrors($validator);
+        }
         $client->name = $request->client_name;
         $client->surname = $request->client_surname;
         $client->phone = $request->client_phone;
         $client->email = $request->client_email;
         $client->country = $request->client_country;
         $client->save();
-        return redirect()->route('client.index');
+        return redirect()->route('client.index')->with('info_message', 'Client was updated.');;
     }
 
     /**
@@ -98,7 +137,10 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
+        if ($client->clientHasManager->count()) {
+            return redirect()->route('client.index')->with('info_message', 'Client with manager cannot be deleted');
+        }
         $client->delete();
-        return redirect()->route('client.index')->with('info_message', 'Client was deleted!');
+        return redirect()->route('client.index')->with('success_message', 'Client was deleted!');
     }
 }

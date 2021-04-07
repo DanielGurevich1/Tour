@@ -10950,10 +10950,15 @@ a.text-dark:focus {
 
 .list-line__buttons {
   display: flex;
+  cursor: pointer;
 }
 
 .list-line__buttons > * {
-  margin: 75px;
+  margin: 10px 15px;
+}
+
+.paginator-container {
+  margin: 12 px;
 }
 
 

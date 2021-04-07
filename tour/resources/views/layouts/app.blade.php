@@ -10,15 +10,21 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.1/tailwind.min.css" integrity="sha512-BAK6UB671tmfzrkeH1CacTvgHQ3aLAFnT2KsigdATsc5X7+3u42tb5vjmAoDiqtxphP5dNZ3cDygivTsGEJhGw==" crossorigin="anonymous" />
 
+    <!-- include summernote css/js -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('sass/custom.scss') }}" rel="stylesheet">
+
+
+
 </head>
 <body>
     <div id="app">
@@ -78,7 +84,7 @@
                                     Manager List
                                 </a>
                                 <a class="dropdown-item" href="{{ route('manager.create') }}">
-                                    New Book
+                                    New Manager
                                 </a>
                             </div>
                         </li>
@@ -135,7 +141,7 @@
 
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                Prices $ Tours
+                                Prices & Tours
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('price.index') }}">
@@ -176,6 +182,40 @@
         </nav>
 
         <main class="py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        @if ($errors->any())
+                        <div class="alert">
+                            <ul class="list-group">
+                                @foreach ($errors->all() as $error)
+                                <li class="list-group-item list-group-item-danger">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        @if(session()->has('success_message'))
+                        <div class="alert alert-success" role="alert">
+                            {{session()->get('success_message')}}
+                        </div>
+                        @endif
+
+                        @if(session()->has('info_message'))
+                        <div class="alert alert-info" role="alert">
+                            {{session()->get('info_message')}}
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+
             @yield('content')
         </main>
     </div>

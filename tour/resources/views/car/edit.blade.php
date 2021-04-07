@@ -9,7 +9,7 @@
                 <div class="card-body">
 
                     <form method="POST" action="{{route('car.update',[$car->id])}}">
-                        Car name: <input type="text" name="car_name" value="{{$car->name}}">
+                        Car name: <input type="text" name="car_name" value="{{$car->name}}" class="form-control">
                         Price: <input type="text" name="car_price" value="{{$car->price}}">
 
                         @csrf

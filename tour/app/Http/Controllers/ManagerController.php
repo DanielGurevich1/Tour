@@ -21,7 +21,8 @@ class ManagerController extends Controller
     public function index()
     {
         $clients = Client::all();
-        $managers = Manager::all();
+        // $managers = Manager::all();
+        $managers = Manager::paginate(5);
         return view('manager.index', ['managers' => $managers, 'clients' => $clients]);
     }
 

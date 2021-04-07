@@ -1,14 +1,37 @@
-<form method="POST" action="{{route('manager.store')}}">
-    Name: <input type="text" name="manager_name">
-    Surname: <input type="text" name="manager_surname">
+@extends('layouts.app')
 
-    <select name="client_id">
-        @foreach ($clients as $client)
-        <option value="{{$client->id}}">{{$client->name}} {{$client->surname}}</option>
-        @endforeach
-    </select>
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Create ManagerClients</div>
 
-    @csrf
+                <div class="card-body">
 
-    <button type="submit">ADD</button>
-</form>
+                    <ul class="list-group ">
+                        <form method="POST" action="{{route('manager.store')}}">
+                            <label for="client_phone">Enter a name</label>
+                            <input type="text" name="manager_name" class="form-control">
+                            <label for="client_phone">Enter a surname</label>
+                            <input type="text" name="manager_surname" class="form-control">
+                            <label for="client_phone">Choose client</label>
+                            <select name="client_id" class="form-control">
+                                @foreach ($clients as $client)
+                                <option value="{{$client->id}}">{{$client->name}} {{$client->surname}}</option>
+                                @endforeach
+                            </select>
+
+                            @csrf
+
+                            <button type="submit" class="btn btn-success btn-sm">Create</button>
+                        </form>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
