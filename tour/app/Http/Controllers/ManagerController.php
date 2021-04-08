@@ -18,11 +18,36 @@ class ManagerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $clients = Client::all();
-        // $managers = Manager::all();
-        $managers = Manager::paginate(5);
+
+
+        // sort managers by clients
+        if ($request->client_id) {
+            $managers  = Manager::where('client_id', $request->client_id)->get();
+            $filterBy = $request->client_id;
+        } else {
+            $managers = Manager::all();
+        }
+
+        if ($request->sort && 'asc' == $request->sort) {
+            $managers = $managers->sortBy('name');
+            $sortBy = 'asc';
+        } elseif ($request->sort && 'desc' == $request->sort) {
+            $managers = $managers->sortByDesc('name');
+            $sortBy = 'desc';
+        }
+
+        return view('manager.index', [
+            'managers' => $managers,
+            'clients' => $clients,
+            'sortBy' => $sortBy ?? '',
+            'filterBy' => $filterBy ?? 0,
+
+        ]);
+
+        // $managers = Manager::paginate(5);
         return view('manager.index', ['managers' => $managers, 'clients' => $clients]);
     }
 

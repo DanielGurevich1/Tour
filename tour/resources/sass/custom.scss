@@ -1,12 +1,36 @@
+// .list-line {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     &__buttons{
+//         display: flex;
+//         cursor: pointer;
+//         &>*{
+//             margin:10px 15px;
+//         }
+//     }
+// }
+
 .list-line {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    &__buttons{
+    &__buttons {
         display: flex;
-        cursor: pointer;
-        &>*{
-            margin:10px 15px;
+        &>* {
+            margin: 5px;
+        }
+    }
+    &__check {
+        display: flex;
+        flex-direction: column;
+        &__client {
+            font-weight: bold;
+        }
+        &__manager {
+            color: gray;
+            font-size: 50%;
+            font-style: italic;
         }
     }
 }
@@ -15,3 +39,8 @@
     margin:12 px;
     
 }
+
+.filter {
+    margin:15px 15px;
+}
+

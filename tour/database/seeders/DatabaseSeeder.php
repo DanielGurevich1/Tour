@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
                 'phone' => $faker->phoneNumber,
                 'email' => Str::random(7) . '@gmail.com',
                 'country' => $faker->country(),
+                'portret' => $faker->imageUrl(50, 100),
+
             ]);
         }
         // user

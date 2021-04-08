@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Manager;
 use Illuminate\Http\Request;
 use Validator;
+use PDF;
 
 class ClientController extends Controller
 {
@@ -17,10 +19,32 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // $managers = Manager::all();
+
+        // if ($request->manager_id) {
+        //     $clients  = Client::where('manager_id', $request->manager_id)->get();
+        //     $filterBy = $request->manager_id;
+        // } else {
+        // }
         $clients = Client::all();
-        return view('client.index', ['clients' => $clients]);
+
+        if ($request->sort && 'asc' == $request->sort) {
+            $clients = $clients->sortBy('name');
+            $sortBy = 'asc';
+        } elseif ($request->sort && 'desc' == $request->sort) {
+            $clients = $clients->sortByDesc('name');
+            $sortBy = 'desc';
+        }
+
+        return view('client.index', [
+            'clients' => $clients,
+            // 'managers' => $managers,
+            'sortBy' => $sortBy ?? '',
+            'filterBy' => $filterBy ?? 0,
+
+        ]);
     }
 
     /**
@@ -29,8 +53,10 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+
     {
-        return view('client.create');
+
+        return view('client.create', []);
     }
 
     /**
@@ -67,6 +93,9 @@ class ClientController extends Controller
         $client->phone = $request->client_phone;
         $client->email = $request->client_email;
         $client->country = $request->client_country;
+
+
+
         $client->save();
         return redirect()->route('client.index')->with('success_message', 'Client was added.');;
     }
@@ -125,6 +154,15 @@ class ClientController extends Controller
         $client->phone = $request->client_phone;
         $client->email = $request->client_email;
         $client->country = $request->client_country;
+
+        $file = $request->file('client_portret');
+        dd($file);
+        $name = $file->getClientOriginalName() . '.' . $file->getClientOriginalExtension();
+        // $name = rand(1000, 9999) . '.' . $file->getClientOriginalExtension(); // random
+
+        $file->move(public_path('img'), $name);
+
+        $client->portret = 'http://localhost/Tour/tour/public/img/' . $name;
         $client->save();
         return redirect()->route('client.index')->with('info_message', 'Client was updated.');;
     }
@@ -137,10 +175,22 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
+
+        $addedLink = 'http://localhost/Tour/tour/public/img/';
+        $imgName = str_replace($addedLink, '', $client->portret);
+        if (file_exists(public_path('img') . '/' . $imgName)) {
+            unlink(public_path('img') . '/' . $imgName);
+        }
+
         if ($client->clientHasManager->count()) {
             return redirect()->route('client.index')->with('info_message', 'Client with manager cannot be deleted');
         }
         $client->delete();
         return redirect()->route('client.index')->with('success_message', 'Client was deleted!');
+    }
+    public function pdf(Client $client)
+    {
+        $pdf = PDF::loadView('client.pdf', ['client' => $client]);
+        return $pdf->download('client_id' . $client->id . '.pdf');
     }
 }

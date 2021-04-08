@@ -39,6 +39,7 @@ Route::group(['prefix' => 'clients'], function () {
     Route::post('update/{client}', [ClientController::class, 'update'])->name('client.update');
     Route::post('delete/{client}', [ClientController::class, 'destroy'])->name('client.destroy');
     Route::get('show/{client}', [ClientController::class, 'show'])->name('client.show');
+    Route::get('pdf/{client}', [ClientController::class, 'pdf'])->name('client.pdf');
 });
 Route::group(['prefix' => 'managers'], function () {
     Route::get('', [ManagerController::class, 'index'])->name('manager.index');

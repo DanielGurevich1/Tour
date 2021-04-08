@@ -26,6 +26,12 @@
                             <label for="client_phone">Enter a country</label>
                             Country: <input type="text" name="client_country" value="{{$client->country}}" class="form-control" value="{{old('client_country', $client->country)}}">
                             @csrf
+                            <div class="form-group" class="form-control">
+                                <label>Portret: </label>
+                                <input type="file" class="form-control" name="client_portret">
+                                <img src="{{$client->portret}}">
+                            </div>
+
 
                             <button type="submit" class="btn btn-primary btn-sm">Edit</button>
 
